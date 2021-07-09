@@ -17,7 +17,7 @@ import Colors from "../constants/Colors";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
 import { RootStackParamList } from "../types";
-import BottomTabNavigator from "./BottomTabNavigator";
+import MainTabNavigator from "./MainTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
 
 export default function Navigation({
@@ -43,7 +43,11 @@ function RootNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: { backgroundColor: Colors.light.tint },
+        headerStyle: {
+          backgroundColor: Colors.light.tint,
+          elevation: 0,
+          height: 62
+        },
         headerTintColor: Colors.light.background,
         headerTitleAlign: "left",
         headerTitleStyle: { fontWeight: "bold" }
@@ -51,9 +55,9 @@ function RootNavigator() {
     >
       <Stack.Screen
         name="Root"
-        component={BottomTabNavigator}
+        component={MainTabNavigator}
         options={{
-          title: "WhatsApp",
+          title: "NopeApp",
           headerRight: () => (
             <View
               style={{
