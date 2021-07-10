@@ -28,7 +28,7 @@ export default {
 	}, {
 		id: 'm3',
 		content: 'What about you?',
-		createdAt: '2020-10-03T14:49:40.000Z',
+		createdAt: '2021-07-09T14:49:40.000Z',
 		user: {
 			id: 'u2',
 			name: 'Lukas',

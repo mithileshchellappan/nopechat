@@ -5,6 +5,7 @@
  */
 
 import {
+  FontAwesome5,
   MaterialCommunityIcons,
   MaterialIcons,
   Octicons
@@ -92,6 +93,7 @@ function RootNavigator() {
         name="ChatRoom"
         component={ChatRoomScreen}
         options={({ route, navigation }) => ({
+          mode: "modal",
           title: route.params.user.name,
           headerLeft: () => (
             <TouchableOpacity onPress={navigation.goBack}>
@@ -100,11 +102,10 @@ function RootNavigator() {
                   flexDirection: "row",
                   alignItems: "center",
                   marginRight: 20,
-                  justifyContent: "space-around",
-                  
+                  justifyContent: "space-around"
                 }}
               >
-                <MaterialIcons name="arrow-back" size={25} color="white" />
+                <MaterialIcons name="arrow-back" size={25} color="white" style={{marginLeft:2}} />
                 <Image
                   style={{
                     width: 37,
@@ -119,8 +120,20 @@ function RootNavigator() {
             </TouchableOpacity>
           ),
           headerRight: () => (
-            <View>
-              
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: 100
+              }}
+            >
+              <FontAwesome5 name="video" size={22} color="white" />
+              <MaterialIcons name="call" size={22} color="white" />
+              <MaterialCommunityIcons
+                name="dots-vertical"
+                size={22}
+                color="white"
+              />
             </View>
           )
         })}
