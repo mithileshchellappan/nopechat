@@ -4,7 +4,11 @@
  *
  */
 
-import { MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
+import {
+  MaterialCommunityIcons,
+  MaterialIcons,
+  Octicons
+} from "@expo/vector-icons";
 import {
   NavigationContainer,
   DefaultTheme,
@@ -12,13 +16,20 @@ import {
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
-import { ColorSchemeName, View } from "react-native";
+import {
+  ColorSchemeName,
+  View,
+  Image,
+  TouchableOpacityBase,
+  TouchableOpacity
+} from "react-native";
 import Colors from "../constants/Colors";
 
 import NotFoundScreen from "../screens/NotFoundScreen";
 import { RootStackParamList } from "../types";
 import MainTabNavigator from "./MainTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
+import ChatRoomScreen from "../screens/ChatRoomScreen";
 
 export default function Navigation({
   colorScheme
@@ -34,9 +45,6 @@ export default function Navigation({
     </NavigationContainer>
   );
 }
-
-// A root stack navigator is often used for displaying modals on top of all other content
-// Read more here: https://reactnavigation.org/docs/modal
 const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
@@ -45,8 +53,7 @@ function RootNavigator() {
       screenOptions={{
         headerStyle: {
           backgroundColor: Colors.light.tint,
-          elevation: 0,
-          height: 62
+          elevation: 0
         },
         headerTintColor: Colors.light.background,
         headerTitleAlign: "left",
@@ -80,6 +87,43 @@ function RootNavigator() {
             </View>
           )
         }}
+      />
+      <Stack.Screen
+        name="ChatRoom"
+        component={ChatRoomScreen}
+        options={({ route, navigation }) => ({
+          title: route.params.user.name,
+          headerLeft: () => (
+            <TouchableOpacity onPress={navigation.goBack}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginRight: 20,
+                  justifyContent: "space-around",
+                  
+                }}
+              >
+                <MaterialIcons name="arrow-back" size={25} color="white" />
+                <Image
+                  style={{
+                    width: 37,
+                    height: 37,
+                    marginLeft: 3,
+                    marginRight: 10,
+                    borderRadius: 20
+                  }}
+                  source={{ uri: route.params.user.imageUri }}
+                />
+              </View>
+            </TouchableOpacity>
+          ),
+          headerRight: () => (
+            <View>
+              
+            </View>
+          )
+        })}
       />
       <Stack.Screen
         name="NotFound"
