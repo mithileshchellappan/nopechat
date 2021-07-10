@@ -5,7 +5,7 @@ import * as React from "react";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import TabOneScreen from "../screens/TabOneScreen";
+import ChatScreen from "../screens/ChatScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
 import { MainTabParamList, TabOneParamList, TabTwoParamList } from "../types";
 
@@ -41,7 +41,7 @@ export default function MainTabNavigator() {
           tabBarLabel: () => null
         }}
       />
-      <MainTab.Screen name="Chats" component={TabTwoNavigator} options={{}} />
+      <MainTab.Screen name="Chats" component={ChatScreen} options={{}} />
       <MainTab.Screen name="Status" component={TabTwoNavigator} options={{}} />
       <MainTab.Screen name="Calls" component={TabTwoNavigator} options={{}} />
     </MainTab.Navigator>
@@ -66,7 +66,7 @@ function TabOneNavigator() {
     <TabOneStack.Navigator>
       <TabOneStack.Screen
         name="TabOneScreen"
-        component={TabOneScreen}
+        component={ChatScreen}
         options={{ headerTitle: "Tab One Title", headerShown: false }}
       />
     </TabOneStack.Navigator>
