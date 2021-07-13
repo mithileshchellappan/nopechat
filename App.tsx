@@ -14,11 +14,25 @@ import { graphqlOperation } from "@aws-amplify/api-graphql";
 import Auth from "@aws-amplify/auth";
 import API from "@aws-amplify/api";
 import { getUser } from "./src/graphql/queries";
+import { createUser } from "./src/graphql/mutations";
+
 Amplify.configure(config);
+
+const randomImages = [
+  "https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg",
+  "https://hieumobile.com/wp-content/uploads/avatar-among-us-3.jpg",
+  "https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg",
+  "https://hieumobile.com/wp-content/uploads/avatar-among-us-9.jpg"
+];
 
 function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
+
+  const getRandomImage = () => {
+    return randomImages[Math.floor(Math.random() * randomImages.length)];
+  };
+
   useEffect(() => {
     const fetchUser = async () => {
       const userInfo = await Auth.currentAuthenticatedUser({
@@ -26,9 +40,22 @@ function App() {
       });
       if (userInfo) {
         const userData = await API.graphql(
-          graphqlOperation(getUser, { id: userInfo.atributes.sub })
+          graphqlOperation(getUser, { id: userInfo.attributes.sub })
         );
-        console.log('wow',userData);
+        if (userData.data.getUser) {
+          console.log("user is already registered in DB");
+          return;
+        }
+        const newUser = {
+          id: userInfo.attributes.sub,
+          name: userInfo.username,
+          imageUri: getRandomImage(),
+          status: "Hello there, I'm using NopeApp"
+        };
+
+        console.log('object',newUser);
+
+        await API.graphql(graphqlOperation(createUser, { input: newUser }));
       }
     };
     fetchUser();
